@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新闻详情</title>
+  <style>
+    /* 外层包裹容器：边框 + 悬浮阴影，整体比页面小一圈 */
+    .wrapper{
+      margin: 20px;                 /* 距页面边缘留出一圈 */
+      border: 1px solid #e0e0e0;    /* 边框 */
+      border-radius: 8px;           /* 圆角，让悬浮感更柔和 */
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15); /* 悬浮投影 */
+      background: #fff;
+      padding: 20px 30px 30px;      /* 内边距，内容不贴边框 */
+    }
+    /* 正文内容容器：页面居中、字号18px、深色文字、合适行高、首行缩进2字符 */
+    .container{
+margin: 0 auto;
+line-height: 1.2;
+    }
+    /* 图片包裹容器：通过text-align:center实现行内图片的水平居中 */
+    .img{
+      /* 内容居中（text-align）*/
+      text-align: center;
+    }
+    /* 副标题/来源信息：字号14px、浅灰色 */
+    .vibetitle{
+font-size: 14px;
+color: #999;
+margin-top: 40px;
+margin-bottom: 40px;
+    }
+    /* 主标题：大字号、深色文字、居中显示 */
+    .maintitle{
+font-size: 30px;
+color: #333;
+line-height: 1.2;
+text-align: center;
+    }
+    p{
+      font-size: 18px;
+      color: #333;
+      line-height: 1.2;
+      text-indent: 2em;
+    }
+p{
+  margin-bottom: 1em; /* 增加段落间距 */
+}
+  </style>
+</head>
+<body>
+<div class="wrapper">
+<div class="container">
+    <h1 class="maintitle">在希望的田野下 | 湖北秋收开镰 各地多举措保增产增收</h1>
+    <h2 class="vibetitle">来源：央视网 | 2222年12月12日 12:12:12</h2>
+  <p><b>央视网消息：</b>眼下，湖北省秋收开镰已有一周多的时间。水稻收割已经超过四成，玉米收割七成。湖北省通过大力推广新品种水稻，建设高标准农田等一系列措施，为秋粮稳产提供有力支撑。</p>
+  <p>中稻占据了湖北全年粮食产量的一半以上。在湖北的主产区荆门市，370万亩中稻已经收割四成以上。</p>
+  </div>
+  <div class="img">
+  <img src="./workimg/image.png" width="800" alt="">
+  </div>
+  <div class="container">
+  <p>王化林说的新品种，是湖北省研发的杂交水稻“华夏香丝”，不仅产量高，还具有抗病、抗倒、抗高温的特性。在荆门漳河镇的一工程示范田内，像“华夏香丝”这样抗旱节水的品种还有20多个，这些水稻新品将在荆门全面推广，确保来年增产增收。</p>
+  <p>此外，湖北还大力推进高标准农田建设。截至今年6月，已建成3980万亩高标准农田。目前，湖北全省仍有1800多万亩中稻正在有序收割中，预计10月中旬收割完毕。</p>
+</div>
+</div>
+</body>
+</html>
