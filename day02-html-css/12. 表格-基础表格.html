@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>射雕英雄传人物表格</title>
+  <style>
+    /* 高端大气背景 */
+    body {
+      margin: 20px 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 80%, #533483 100%);
+      background-attachment: fixed;
+      position: relative;
+      overflow-x: hidden;
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+    }
+    /* 装饰性光晕 */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -200px;
+      left: -200px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      bottom: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(147, 112, 219, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* 美化表格样式 */
+    table {
+      width: 70%;
+      margin: 40px auto;
+      border-collapse: collapse;
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 175, 55, 0.15);
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+    th, td {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      text-align: center;
+      padding: 12px 15px;
+    }
+    th {
+      background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+      color: white;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    tr:nth-child(even) {
+      background-color: rgba(242, 242, 242, 0.8);
+    }
+    tr:hover {
+      background-color: rgba(221, 221, 221, 0.9);
+      transform: scale(1.01);
+      transition: all 0.3s ease;
+    }
+    /* 单元格悬停变色 */
+    td:hover {
+      background-color: #d4af37;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+</style>
+  </style>
+</head>
+<body>
+  <!-- 基础表格 -->
+   <table>
+    <tr>
+      <th>姓名</th>
+      <th>年龄</th>
+      <th>性别</th>
+      <th>功法</th>
+      <th>修为</th>
+    </tr>
+    <tr>
+      <td>郭靖</td>
+      <td>18</td>
+      <td>男</td> 
+      <td>降龙十八掌</td>
+      <td>300</td>
+    </tr>
+    <tr>
+      <td>黄蓉</td>
+      <td>16</td>
+      <td>女</td> 
+      <td>打狗棒法</td>
+      <td>280</td>
+    </tr>
+    <tr>
+      <td>杨康</td>
+      <td>19</td>
+      <td>男</td> 
+      <td>九阴白骨爪</td>
+      <td>320</td>
+    </tr> 
+    <tr>
+      <td>穆念慈</td>
+      <td>20</td>
+      <td>女</td> 
+      <td>铁尸神功</td>
+      <td>260</td>
+    </tr>
+    <tr>
+      <td>欧阳克</td>
+      <td>22</td>
+      <td>男</td>
+      <td>蛤蟆功</td>
+      <td>350</td>
+    </tr>
+    <tr>
+      <td>欧阳锋</td>
+      <td>55</td>
+      <td>男</td>
+      <td>蛤蟆功</td>
+      <td>580</td>
+    </tr>
+    <tr>
+      <td>洪七公</td>
+      <td>58</td>
+      <td>男</td>
+      <td>降龙十八掌</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <td>黄药师</td>
+      <td>60</td>
+      <td>男</td>
+      <td>弹指神通</td>
+      <td>620</td>
+    </tr>
+    <tr>
+      <td>小龙女</td>
+      <td>18</td>
+      <td>女</td>
+      <td>玉女素心剑</td>
+      <td>480</td>
+    </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>tlias智能学习辅助系统</title>
+    <style>
+        /* 清除浏览器默认外边距，避免导航栏出现空白缝隙 */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 顶部导航栏：占网页整体宽度 80%，水平居中，背景色灰色 */
+        .navbar {
+            width: 80%;                  /* 导航栏占网页整体 80% */
+            margin: 0 auto;              /* 左右自动外边距，使导航栏在页面中水平居中 */
+            background-color: gray;      /* 背景色灰色 */
+            overflow: hidden;            /* 清除子元素浮动带来的高度塌陷 */
+        }
+
+        /* 使用浮动布局，让标题与退出登录处于同一水平线上 */
+        /* 左侧标题：tlias智能学习辅助系统 */
+        .navbar .title {
+            float: left;                 /* 浮动到左侧，实现标题居左 */
+            font-family: "楷体", KaiTi;  /* 字体楷体 */
+            font-size: 28px;             /* 字体大小 28px */
+            color: #ffffff;              /* 字体颜色白色 */
+            line-height: 60px;           /* 行高与导航栏高度一致，使文字垂直居中 */
+            padding-left: 20px;          /* 左侧留一点内边距，文字不紧贴边缘 */
+        }
+
+        /* 右侧退出登录文字链接 */
+        .navbar .logout {
+            float: right;                /* 浮动到右侧，实现退出登录居右 */
+            font-family: "楷体", KaiTi;  /* 字体楷体 */
+            font-size: 16px;             /* 字体大小 16px */
+            color: #ffffff;              /* 字体颜色白色 */
+            text-decoration: none;       /* 去掉链接默认下划线 */
+            line-height: 60px;           /* 行高与导航栏高度一致，使文字垂直居中 */
+            padding-right: 20px;         /* 右侧留一点内边距，文字不紧贴边缘 */
+        }
+
+        /* 鼠标悬停时给退出登录一点交互反馈 */
+        .navbar .logout:hover {
+            text-decoration: underline;  /* 悬停时显示下划线 */
+        }
+
+        /* 退出登录前的电源键图标 */
+        .navbar .logout-icon {
+            width: 16px;                 /* 图标宽度，与文字大小协调 */
+            height: 16px;                /* 图标高度，与文字大小协调 */
+            vertical-align: middle;      /* 图标与文字垂直居中对齐 */
+            margin-right: 6px;           /* 图标与文字之间的间距 */
+        }
+
+        /* ==================== 第二部分：搜索表单区域 ==================== */
+
+        /* 搜索表单外层容器：与导航栏同宽 80%，水平居中，与导航栏拉开距离 */
+        .search-container {
+            width: 80%;                  /* 与顶部导航栏宽度保持一致 */
+            margin: 20px auto 0;         /* 顶部与导航栏间隔 20px，水平居中 */
+            background-color: #f5f5f5;   /* 浅灰底色，与页面背景区分开，显大气 */
+            padding: 20px;               /* 内边距，让内容不紧贴容器边框 */
+            border-radius: 6px;          /* 轻微圆角，视觉更柔和 */
+            box-sizing: border-box;      /* 包含 padding 在内计算宽度，保证 80% 对齐 */
+        }
+
+        /* 搜索表单行：使用 flex 布局，使所有表单项和按钮水平排列于一行 */
+        .search-form {
+            display: flex;               /* 启用 flex 布局 */
+            align-items: center;         /* 所有项垂直居中对齐 */
+            gap: 15px;                   /* 各元素之间统一的间距 */
+            width: 100%;                 /* 占满容器宽度 */
+        }
+
+        /* 单个表单项（标签+控件为一组）：三组表单项平分按钮以外的剩余空间 */
+        .search-item {
+            flex: 1;                     /* 三个表单项 flex 值相同，平分剩余空间 */
+            display: flex;               /* 标签与控件也用 flex 横向排列 */
+            align-items: center;         /* 标签与控件垂直居中对齐 */
+            min-width: 0;                /* 避免内容过长撑开 flex 布局 */
+        }
+
+        /* 表单项标签（姓名、性别、职位） */
+        .search-item label {
+            flex-shrink: 0;              /* 标签宽度不被压缩 */
+            font-family: "楷体", KaiTi;  /* 字体楷体，与整体风格一致 */
+            font-size: 16px;             /* 标签字号 16px */
+            color: #333333;              /* 深灰文字色，保证可读性 */
+            margin-right: 8px;           /* 标签与输入控件之间的小间距 */
+        }
+
+        /* 文本输入框 与 下拉选择框 的通用样式 */
+        .search-item input[type="text"],
+        .search-item select {
+            flex: 1;                     /* 控件占满表单项剩余宽度（标签以外的部分） */
+            height: 36px;                /* 统一输入/下拉控件高度 */
+            padding: 0 10px;             /* 左右内边距，文字不贴边 */
+            border: 1px solid #cccccc;   /* 浅灰边框 */
+            border-radius: 4px;          /* 轻微圆角 */
+            font-size: 14px;             /* 输入文字字号 14px */
+            box-sizing: border-box;      /* 包含 border 在内计算尺寸 */
+            background-color: #ffffff;   /* 白色背景 */
+            outline: none;               /* 去掉默认聚焦轮廓，后续统一做聚焦样式 */
+        }
+
+        /* 输入框/下拉框 获得焦点时的样式：高亮提示用户正在操作 */
+        .search-item input[type="text"]:focus,
+        .search-item select:focus {
+            border-color: #409eff;       /* 聚焦时边框变为蓝色，与查询按钮呼应 */
+            box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.15); /* 淡淡的蓝色光晕 */
+        }
+
+        /* 按钮组容器：固定在最右侧，两个按钮靠在一起 */
+        .search-buttons {
+            flex-shrink: 0;              /* 按钮组宽度不被压缩，保证始终显示完整 */
+            display: flex;               /* 两个按钮水平排列 */
+            gap: 10px;                   /* 两个按钮之间的间距 */
+        }
+
+        /* 按钮通用样式 */
+        .search-buttons button {
+            height: 36px;                /* 与输入控件等高，视觉对齐 */
+            padding: 0 20px;             /* 左右内边距，按钮看起来更饱满 */
+            font-size: 14px;             /* 按钮文字字号 */
+            color: #ffffff;              /* 按钮字体颜色统一为白色 */
+            border: none;                /* 去掉默认边框 */
+            border-radius: 4px;          /* 轻微圆角，与输入控件保持一致 */
+            cursor: pointer;             /* 鼠标移入变为手型，提示可点击 */
+            transition: opacity 0.2s;    /* 悬停透明度过渡，交互更平滑 */
+        }
+
+        /* 查询按钮：背景色蓝色 */
+        .search-buttons .btn-search {
+            background-color: #409eff;   /* 蓝色背景 */
+        }
+
+        /* 清空按钮：背景色浅灰色 */
+        .search-buttons .btn-reset {
+            background-color: #c0c4cc;   /* 浅灰色背景 */
+        }
+
+        /* 鼠标悬停按钮时，略微变透明，给用户交互反馈 */
+        .search-buttons button:hover {
+            opacity: 0.85;               /* 轻微降低不透明度 */
+        }
+
+        /* ==================== 第三部分：表格展示区 ==================== */
+
+        /* 表格区域外层容器：与上方搜索区同宽 80%，水平居中，与搜索区拉开距离 */
+        .table-container {
+            width: 80%;                  /* 与导航栏、搜索区宽度保持一致 */
+            margin: 20px auto 0;         /* 顶部与搜索区间隔 20px，水平居中 */
+            background-color: #f5f5f5;   /* 浅灰色背景，与搜索区背景一致，使边界可见 */
+            padding: 20px;               /* 内边距，让表格不紧贴容器边框 */
+            border-radius: 6px;          /* 轻微圆角，与上方区域风格统一 */
+            box-sizing: border-box;      /* 包含 padding 计算宽度 */
+        }
+
+        /* 表格本身：宽度占满容器，边框合并为单线，字体统一 */
+        .data-table {
+            width: 100%;                 /* 占满容器宽度 */
+            border-collapse: collapse;   /* 合并相邻边框，呈现单线效果 */
+            font-size: 14px;             /* 表格字号 14px */
+            color: #333333;              /* 表格文字深灰色 */
+        }
+
+        /* 表头单元格：浅灰底色 + 加粗，区分于表体 */
+        .data-table th {
+            background-color: #fafafa;   /* 表头浅灰底色 */
+            color: #333333;              /* 表头文字深灰色 */
+            font-weight: 600;            /* 加粗 */
+            padding: 12px 10px;          /* 单元格内边距，保证留白 */
+            border-bottom: 2px solid #e8e8e8; /* 表头底部加粗分割线 */
+            text-align: center;          /* 表头文字居中 */
+            white-space: nowrap;         /* 表头不换行 */
+        }
+
+        /* 表体单元格：统一内边距与底部细分割线 */
+        .data-table td {
+            padding: 12px 10px;          /* 单元格内边距 */
+            border-bottom: 1px solid #f0f0f0; /* 行间细分割线 */
+            text-align: center;          /* 单元格文字居中 */
+        }
+
+        /* 鼠标悬停某一行时，整行变为淡蓝底色，提升可读性 */
+        .data-table tbody tr:hover {
+            background-color: #f5faff;   /* 悬停时淡蓝背景 */
+        }
+
+        /* 头像：图片形式的小图标 */
+        .avatar {
+            width: 32px;                 /* 头像宽度 32px */
+            height: 32px;                /* 头像高度 32px */
+            border-radius: 50%;          /* 圆形，使头像更美观 */
+            object-fit: cover;           /* 图片按比例裁剪填充，不变形 */
+            vertical-align: middle;      /* 与同行文字垂直居中对齐 */
+        }
+
+        /* 操作列按钮：无背景色，字体金色 */
+        .data-table .op-btn {
+            background: none;            /* 去掉背景色 */
+            border: none;                /* 去掉边框 */
+            color: #d4af37;              /* 金色字体 */
+            font-size: 14px;             /* 按钮字号 */
+            cursor: pointer;             /* 手型光标 */
+            padding: 4px 8px;            /* 点击区域留白 */
+            margin: 0 4px;               /* 两个按钮之间间距 */
+            transition: opacity 0.2s;    /* 悬停过渡 */
+        }
+
+        /* 悬停操作按钮时，略微变透明 */
+        .data-table .op-btn:hover {
+            opacity: 0.7;                /* 轻微降低不透明度 */
+            text-decoration: underline;  /* 显示下划线，提示可点击 */
+        }
+
+        /* ==================== 第四部分：页脚版权区域 ==================== */
+
+        /* 页脚容器：与上方区域同宽 80%，水平居中，与表格区拉开距离 */
+        .footer {
+            width: 80%;                  /* 与导航栏、搜索区、表格区宽度保持一致 */
+            margin: 30px auto 0;         /* 顶部与表格区间隔 30px，水平居中 */
+            background-color: #666666;   /* 浅灰色背景 */
+            color: #ffffff;              /* 字体颜色白色 */
+            text-align: center;          /* 文字居中对齐 */
+            padding: 20px 0;            /* 上下内边距，左右无内边距 */
+            font-family: "楷体", KaiTi;  /* 字体楷体，与整体风格统一 */
+            border-radius: 6px;          /* 与上方区域风格统一 */
+            box-sizing: border-box;      /* 包含 padding 计算宽度 */
+        }
+
+        /* 页脚第一行：公司全称 */
+        .footer .company {
+            font-size: 18px;             /* 字号稍大，突出公司名 */
+            margin-bottom: 10px;         /* 与下一行（版权信息）的间距 */
+            font-weight: 500;            /* 稍微加粗，增加可读性 */
+        }
+
+        /* 页脚第二行：版权信息 */
+        .footer .copyright {
+            font-size: 14px;             /* 字号略小，作为次要信息 */
+            opacity: 0.9;                /* 略微降低不透明度，与公司名形成层级 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 第一部分：顶部导航栏 -->
+    <div class="navbar">
+        <!-- 左侧标题 -->
+        <span class="title">tlias智能学习辅助系统</span>
+        <!-- 右侧退出登录链接（带电源键图标） -->
+        <a href="#" class="logout"><img src="image/logout.png" alt="退出登录" class="logout-icon">退出登录</a>
+    </div>
+
+    <!-- 第二部分：搜索表单区域 -->
+    <div class="search-container">
+        <form class="search-form">
+            <!-- 姓名：文本输入框 -->
+            <div class="search-item">
+                <label for="name">姓名</label>
+                <input type="text" id="name" name="name" placeholder="请输入姓名">
+            </div>
+
+            <!-- 性别：下拉选择（男/女，默认为空） -->
+            <div class="search-item">
+                <label for="gender">性别</label>
+                <select id="gender" name="gender">
+                    <option value="">请选择</option>
+                    <option value="1">男</option>
+                    <option value="2">女</option>
+                </select>
+            </div>
+
+            <!-- 职位：下拉选择（5 个选项，默认为空） -->
+            <div class="search-item">
+                <label for="job">职位</label>
+                <select id="job" name="job">
+                    <option value="">请选择</option>
+                    <option value="1">班主任</option>
+                    <option value="2">讲师</option>
+                    <option value="3">学工主管</option>
+                    <option value="4">教研主管</option>
+                    <option value="5">咨询师</option>
+                </select>
+            </div>
+
+            <!-- 查询 + 清空按钮组 -->
+            <div class="search-buttons">
+                <button type="submit" class="btn-search">查询</button>
+                <button type="reset" class="btn-reset">清空</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 第三部分：表格展示区 -->
+    <div class="table-container">
+        <table class="data-table">
+            <!-- 表头 -->
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>头像</th>
+                    <th>职位</th>
+                    <th>入职日期</th>
+                    <th>最后操作时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <!-- 表体：基于《笑傲江湖》人物的 8 条虚拟数据 -->
+            <tbody>
+                <tr>
+                    <td>令狐冲</td>
+                    <td>男</td>
+                    <td><img src="https://zxy-data.oss-cn-hangzhou.aliyuncs.com/icon/1.png" alt="令狐冲头像" class="avatar"></td>
+                    <td>讲师</td>
+                    <td>2018-03-15</td>
+                    <td>2026-07-28 09:30:21</td>
+                    <td>
+                        <button class="op-btn">编辑</button>
+                        <button class="op-btn">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>任盈盈</td>
+                    <td>女</td>
+                    <td><img src="https://zxy-data.oss-cn-hangzhou.aliyuncs.com/icon/2.png" alt="任盈盈头像" class="avatar"></td>
+                    <td>班主任</td>
+                    <td>2019-07-22</td>
+                    <td>2026-07-27 16:45:03</td>
+                    <td>
+                        <button class="op-btn">编辑</button>
+                        <button class="op-btn">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>岳不群</td>
+                    <td>男</td>
+                    <td><img src="https://zxy-data.oss-cn-hangzhou.aliyuncs.com/icon/3.png" alt="岳不群头像" class="avatar"></td>
+                    <td>教研主管</td>
+                    <td>2015-06-10</td>
+                    <td>2026-07-26 14:20:18</td>
+                    <td>
+                        <button class="op-btn">编辑</button>
+                        <button class="op-btn">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>东方不败</td>
+                    <td>男</td>
+                    <td><img src="https://zxy-data.oss-cn-hangzhou.aliyuncs.com/icon/4.png" alt="东方不败头像" class="avatar"></td>
+                    <td>学工主管</td>
+                    <td>2016-09-08</td>
+                    <td>2026-07-25 11:10:55</td>
+                    <td>
+                        <button class="op-btn">编辑</button>
+                        <button class="op-btn">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>林平之</td>
+                    <td>男</td>
+                    <td><img src="https://zxy-data.oss-cn-hangzhou.aliyuncs.com/icon/1.png" alt="林平之头像" class="avatar"></td>
+                    <td>咨询师</td>
+                    <td>2021-02-18</td>
+                    <td>2026-07-24 15:05:42</td>
+                    <td>
+                        <button class="op-btn">编辑</button>
+                        <button class="op-btn">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>任我行</td>
+                    <td>男</td>
+                    <td><img src="https://zxy-data.oss-cn-hangzhou.aliyuncs.com/icon/2.png" alt="任我行头像" class="avatar"></td>
+                    <td>讲师</td>
+                    <td>2014-11-03</td>
+                    <td>2026-07-23 10:30:11</td>
+                    <td>
+                        <button class="op-btn">编辑</button>
+                        <button class="op-btn">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>岳灵珊</td>
+                    <td>女</td>
+                    <td><img src="https://zxy-data.oss-cn-hangzhou.aliyuncs.com/icon/3.png" alt="岳灵珊头像" class="avatar"></td>
+                    <td>班主任</td>
+                    <td>2020-08-12</td>
+                    <td>2026-07-22 17:25:36</td>
+                    <td>
+                        <button class="op-btn">编辑</button>
+                        <button class="op-btn">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>风清扬</td>
+                    <td>男</td>
+                    <td><img src="https://zxy-data.oss-cn-hangzhou.aliyuncs.com/icon/4.png" alt="风清扬头像" class="avatar"></td>
+                    <td>教研主管</td>
+                    <td>2012-04-25</td>
+                    <td>2026-07-21 08:50:09</td>
+                    <td>
+                        <button class="op-btn">编辑</button>
+                        <button class="op-btn">删除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 第四部分：页脚版权区域 -->
+    <footer class="footer">
+        <!-- 第一行：公司全称 -->
+        <div class="company">江苏传智播客教育科技股份有限公司</div>
+        <!-- 第二行：版权信息 -->
+        <div class="copyright">版权所有 Copyright 2006-2024 All Rights Reserved</div>
+    </footer>
+</body>
+</html>
