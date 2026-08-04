@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>销售额</title>
+</head>
+
+<body>
+  <script>
+    let Sales = prompt("请输入你的销售额");//键入销售额
+    let Bonus;//奖金变量
+    Bonus = Sales >= 100000 ? Sales * 0.1 : Sales * 0.05;//奖金计算公式，三元计算式，表示销售额销售额大于等于100000时，奖金为销售额的10%，否则为销售额的5%
+    document.writeln(`你的奖金为${Bonus}元`)
+
+  </script>
+</body>
+
+</html>

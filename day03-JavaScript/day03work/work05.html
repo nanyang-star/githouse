@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>时分秒转换</title>
+</head>
+
+<body>
+  <script>
+    //从键盘上得到用户输入的秒数
+    let seconds = prompt("请输入秒数");
+    //得到小时数
+    let hours = parseInt(seconds / 3600);
+    console.log(hours);
+    //得到分钟数
+    let minutes = parseInt(seconds % 3600 / 60);
+    console.log(minutes);
+    //得到秒数
+    let second = parseInt(seconds % 60);
+    console.log(second);
+    //输出结果
+    console.log(`${hours}时${minutes}分${second}秒`);
+  </script>
+</body>
+
+</html>

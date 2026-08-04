@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自增自减运算符</title>
+</head>
+<body>
+  <script>
+    // 自增放前放后区别
+    let a = 10;
+// 在document.writeln中，\n只是JS字符串换行，HTML渲染时不会显示为换行
+// 要在页面上换行需使用<br>标签
+    document.writeln(`a原本为10，使用a++后${a++}<br>`);//10，先显示再加一
+    document.writeln(`${a}<br>`);//11
+    document.writeln(`a原本为11，使用++a后${++a}`);//12，先加一再显示
+  </script>
+</body>
+</html>
