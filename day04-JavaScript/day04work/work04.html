@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>回文数</title>
+</head>
+
+<body>
+  <script>
+    // 生成指定区间内的随机整数
+    // 参数min: 最小值（包含），max: 最大值（不包含）
+    function getRandomInt(min, max) {
+      // Math.random()生成[0,1)的随机数，乘以(max-min)得到[0,max-min)的随机数
+      // 使用Math.floor向下取整，再加上min得到[min,max)的随机整数
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    // 生成20个不相同的[100, 1000)的随机整数，存入数组
+    // 初始化空数组，用于存储符合要求的随机整数
+    let array = [];
+    // 循环执行20次，每次尝试生成指定区间的随机整数
+    for (let i = 0; i < 20; i++) {
+      // 调用getRandomInt生成[100, 1000)区间内的随机整数
+      let random = getRandomInt(100, 1000);
+      // 检查随机数是否已存在于数组中，确保数值唯一
+      if (!array.includes(random)) {//includes()方法判断数组是否包含指定的元素
+        //将其添加到数组末尾
+        array.push(random);
+      }
+    }
+
+    //判断三位数回文数函数
+    function Reverse(num) {
+      if (parseInt(num / 100) == num % 10) {
+        return true;
+      }
+      return false;
+    }
+    //判断数组中各个元素是否为回文数
+    console.log(array);
+    for (let i = 0; i < array.length; i++) {
+      if (Reverse(array[i])) {
+        console.log(array[i]);
+      }
+    }
+    // 多位数回文数函数
+    //将多位数转换为字符串，再判断是否为回文数
+    function Reverse2(num) {
+      //将数字转化为字符串
+      let str = num.toString();//toString()方法将数字转换为字符串
+      //获取字符串的长度
+      let len = str.length;
+      //判断是否为回文数
+      for (let i = 0; i < len / 2; i++) {
+        if (str[i] != str[len - 1 - i]) {
+          return false;
+        }
+      }
+      return true;
+    }
+    //测试多位数回文数函数
+    console.log(Reverse2(12221));
+    console.log(Reverse2(12345));
+    console.log(Reverse2(1234321));
+  </script>
+</body>
+
+</html>

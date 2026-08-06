@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>求元素在数组中的索引</title>
+</head>
+<body>
+  <script>
+    //需求1：定义函数实现给定数组查找元素的索引
+    //需求2：用户键入数组，并键入元素，函数返回元素在数组中的索引
+    //需求3：如果元素不在数组中，返回-1
+    //定义函数findindex，参数为数组和元素
+    function findindex(arr, element) {
+      //for循环，让element和arr数组中每一个元素一一比较，如果相等，返回当前索引存入相同数组same中
+      let same = [];
+      for (let i = 0 , j =0;  i < arr.length; i++) {
+        if (element == arr[i]) {
+          same[j] = i;
+          j++;
+        }
+      }
+      return same;//返回相同元素索引数组
+    }
+    // // 用户键入数组，使用prompt获取输入并通过JSON.parse转换为数组
+    // let inputArr = prompt('请输入数组（格式如：[1,2,3,4]）');
+    // let arr = JSON.parse(inputArr);
+    // // 用户键入要查找的元素
+    // let element = prompt('请输入要找的元素');
+    // // 调用函数查找索引
+    // let result = findindex(arr, element);
+    // // 输出结果
+    // if (result.length === 0) {
+    //   console.log(-1);
+    //   document.write('元素不在数组中，返回：-1');
+    // } else {
+    //   console.log(result);
+    //   document.write('元素在数组中的索引为：' + result.join('、'));
+    // }
+    let array = [1,2,3,4,5,6,7,8,9,10,2,2,5];
+    let arr = findindex(array,prompt('请输入要找的元素'));
+    console.log(arr);
+  </script>
+</body>
+</html>

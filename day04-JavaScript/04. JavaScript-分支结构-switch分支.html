@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //switch分支
+    let week = prompt("请输入星期");
+    switch (week) {
+      case '周一':
+        alert("埋头苦干，解决Bug");
+        break;
+      case '周二':
+      case '周三':
+      case '周四':
+        alert("请大牛程序员帮忙");
+        break;
+      case '周五':
+        alert("自己整理代码");
+        break;
+      case '周六':
+      case '周日':
+        alert("打游戏");
+        break;
+      default:
+        alert("请输入正确的星期");
+        break;
+    }
+  </script>
+</body>
+
+</html>

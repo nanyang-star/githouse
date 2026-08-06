@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATM机</title>
+</head>
+
+<body>
+  <script>
+    //菜单栏，包含取款、存款、查询余额、退出系统
+    function initMenu() {
+      while (true) {
+        //打印菜单栏
+        let choice = prompt("请输入您的选择：1.取款 2.存款 3.查询余额 4.退出系统");
+        //根据用户选择，执行不同操作
+        switch (choice) {
+          case "1":
+            //取款
+            withdraw();
+            break;
+          case "2":
+            //存款
+            save();
+            break;
+          case "3":
+            //查询余额
+            query();
+            break;
+          case "4":
+            //退出系统
+            alert("谢谢使用，再见！");
+            return;
+          default:
+            //输入错误
+            alert("输入错误，请重新输入");
+        }
+      }
+    }
+    //初始化余额
+
+    //定义存款函数
+    function save() {
+      let save = prompt("请输入存款金额");
+      //存款公式
+      balance += Number(save);
+      alert(`存款成功，您的余额为：${balance}`);
+      //判断存款金额是否为负数
+      if (Number(save) < 0) {
+        alert("存款金额不能为负数");
+        return;
+      }
+      //判断存款金额是否为5,10,20,50,100的倍数，一块钱不让存
+      if (Number(save) % 5 != 0 && Number(save) % 10 != 0 && Number(save) % 20 != 0 && Number(save) % 50 != 0 && Number(save) % 100 != 0) {
+        alert(`没有面额为${save}的钞票`);
+        return;
+      }
+      //判断存款金额是否为整数
+      if (Number(save) % 1 != 0) {
+        alert("存款金额必须为整数");
+        return;
+      }
+    }
+    //定义取款函数
+    function withdraw() {
+      let withdraw = prompt("请输入取款金额");
+      //取款公式
+
+      //判断取款金额不能为负数
+      if (Number(withdraw) < 0) {
+        alert("取款金额不能为负数");
+        return;
+      }
+    //判断取款不能大于存款
+    if (Number(withdraw) > balance) {
+      alert("您的余额不足，取款失败");
+      return;
+    }
+    balance -= Number(withdraw);
+    alert(`取款成功，您的余额为：${balance}`);
+    }
+    //定义查询函数
+    function query() {
+      alert(`您的余额为：${balance}`);
+    }
+    //调用菜单栏函数
+    let balance = 0;
+    initMenu();
+  </script>
+</body>
+
+</html>

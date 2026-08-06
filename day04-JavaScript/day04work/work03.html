@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>函数功能</title>
+</head>
+
+<body>
+  <script>
+    //求数组元素和函数
+    function Sum(arr) {
+      let sum = 0;
+      for (let i = 0; i < arr.length; i++) {
+        sum += arr[i];
+      }
+      return sum;
+    }
+    //求数组元素平均值函数
+    function Average(arr) {
+      for (let index = 0; index < arr.length; index++) {
+        let avg = Sum(arr) / arr.length;
+        return avg;
+      }
+    }
+    //测试Sum函数和average函数
+    let array = [1, 5, 58, 56, 98, 5, 3, 4, 7];
+    console.log(Sum(array));
+    console.log(average(array));
+    //获取数组最大值，最小值去除后求平均值，ai写法
+    function AvgOCone(arr) {
+      //使用Math包的方法max()和min()获取最大值，最小值，平均值
+      let max = Math.max(...arr);
+      let min = Math.min(...arr);
+      //去除最大值，indexOf()方法返回数组中第一个匹配的元素的索引，如果未找到则返回-1
+      arr.splice(arr.indexOf(max), 1);
+      //去除最小值
+      arr.splice(arr.indexOf(min), 1);
+      let avg = average(arr);
+      return avg;
+    }
+    //课上方法解决
+    function AvgOCtwo(arr) {
+      //去除最大值
+      let max = arr[0];
+      let min = arr[0];
+      let maxIndex = 0;//记录最大值下标
+      let minIndex = 0;//记录最小值下标
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > max) {
+          max = arr[i];
+          maxIndex = i;
+        }
+        if (arr[i] < min) {
+          min = arr[i];
+          minIndex = i;
+        }
+      }
+      //去除最大值
+      arr.splice(maxIndex, 1);
+      //去除最小值
+      arr.splice(minIndex, 1);
+      //求数组元素平均值
+      let avg = average(arr);
+      return avg;
+    }
+    //测试AvgOCone函数和AvgOCtwo函数
+    array = [1, 5, 58, 56, 98, 5, 3, 4, 7];
+    console.log(AvgOCone(array));
+    array = [1, 5, 58, 56, 98, 5, 3, 4, 7];
+    console.log(AvgOCtwo(array));
+
+  </script>
+</body>
+
+</html>

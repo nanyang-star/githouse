@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    //break和continue和无限循环
+    //break：跳出循环
+    //continue：跳过当前循环，继续下一次循环
+    //无限循环：while(true){}
+    // for (let i = 1; i < 5; i++) {
+    //   if(i == 2){
+    //     document.write('吃第' + i + '个时有虫子<br>');
+    //     continue;
+    //   }
+    //   document.write('吃第' + i + '个时没有虫子<br>');
+    // }
+    for (let i = 1; i < 5; i++) {
+      if(i == 3){
+        document.write('吃第' + i + '个吃饱了<br>');
+        break;
+      }
+      document.write('吃第' + i + '个苹果<br>');
+    }
+    //无限循环
+   
+  </script>
+</body>
+</html>

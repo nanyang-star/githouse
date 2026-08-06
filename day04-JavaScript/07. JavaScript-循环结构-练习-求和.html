@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //输出1~100的偶数
+    for (let i = 1; i <= 100; i++) {
+      if(i % 2 == 0){
+        document.write(i + "<br>");
+      }
+    }
+    //求1~100的和
+    let sum = 0;
+    for (let i = 0; i < 101; i++) {
+      sum = sum + i;
+    }
+    document.write(sum + "<br>");
+    //输出1~100的偶数和
+    sum = 0;
+    for (let i = 1; i <= 100; i++) {
+      if(i % 2 == 0){
+        sum = sum + i;
+      }
+    }
+    document.write(sum);
+  </script>
+</body>
+</html>

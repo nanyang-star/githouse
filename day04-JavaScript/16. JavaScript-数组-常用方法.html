@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //关于数组的常用方法
+    let array = [1,5,58,56,98,5,3,4,7];
+    //pop方法，删除数组的最后一个元素。
+    array.pop();
+    console.log(`${array}`);//此时数组状态为[1,5,58,56,98,5,3,4,7]
+    //push方法，向数组末尾添加一个或多个元素。
+    array.push(100);
+    console.log(`${array}`);//此时数组状态为[1,5,58,56,98,5,3,4,7,100]
+    //shift方法，删除数组的第一个元素。
+    array.shift();
+    console.log(`${array}`);//此时数组状态为[5,58,56,98,5,3,4,7,100]
+    //splice方法，从给定的索引开始，删除给定的n个元素，后再添加1个或多个元素，超过被删除的个数时，数组索引后元素会往后移。
+    array.splice(2,3,100,200,300);
+    console.log(`${array}`);//此时数组状态为[5,58,100,200,300,5,3,4,7,100]
+  </script>
+</body>
+</html>

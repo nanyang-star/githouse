@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大写字母个数</title>
+</head>
+
+<body>
+  <script>
+    //判断是否大写字母函数
+    //参数：一个字符
+    //返回值：true或false
+    function Jugement(char) {
+      if (char >= "A" && char <= "Z") {
+        return true;
+      }
+      return false;
+    }
+
+    //统计大写字母个数函数
+    //参数：一个字符串
+    //返回值：大写字母个数
+    //定义计数变量
+    function Count(str) {
+      let count = 0;
+      //遍历字符串
+      //str类型为字符串，可以使用length属性获取字符串长度
+      for (let i = 0; i < str.length; i++) {
+        if (Jugement(str[i])) {
+          count++;
+        }
+      }
+      return count;
+    }
+    //接收用户传入的字符串
+    let str = prompt("请输入任意内容");
+    //调用函数Count，统计大写字母个数
+    let count = Count(str);
+    //输出结果
+    document.write(`大写字母个数为：${count}`);
+  </script>
+</body>
+
+</html>

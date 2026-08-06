@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //匿名函数，箭头函数使用方法
+   let sum = function (a,b) {
+    return a + b;
+   }
+   console.log(`${sum(10,20)}`);
+
+   //箭头函数
+   let add = (a,b)=>{
+    return a+b;
+   }
+// setInterval 是一个函数，它是 JavaScript 内置的全局函数，用于每隔指定的时间间隔重复执行指定的代码
+   setInterval(()=>{
+    console.log(`箭头函数执行了`);
+    },2000);
+  </script>
+</body>
+</html>

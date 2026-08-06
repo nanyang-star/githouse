@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>统计各种字符个数</title>
+</head>
+
+<body>
+  <script>
+    //判断是否大写字母函数
+    //参数：一个字符
+    //返回值：true或false
+    function JugementA_Z(char) {
+      if (char >= "A" && char <= "Z") {
+        return true;
+      }
+      return false;
+    }
+    //判断是否小写字母函数
+    //参数：一个字符
+    //返回值：true或false
+    function Jugementa_z(char) {
+      if (char >= "a" && char <= "z") {
+        return true;
+      }
+      return false;
+    }
+    //判断空格函数
+    //参数：一个字符
+    //返回值：true或false
+    function JugementSpace(char) {
+      if (char == " ") {
+        return true;
+      }
+      return false;
+    }
+    //判断是否为数字函数
+    //参数：一个字符
+    //返回值：true或false
+    function JugementNum(char) {
+      if (char >= "0" && char <= "9") {
+        return true;
+      }
+      return false;
+    }
+    //统计大写字母个数函数
+    //参数：一个字符串
+    //返回值：大写字母个数
+    //计数变量为countA_Z
+    //初始化为0
+    function CountA_Z(str) {
+      let countA_Z = 0;
+      //遍历字符串
+      for (let i = 0; i < str.length; i++) {
+        //判断是否为大写字母
+        if (JugementA_Z(str[i])) {
+          countA_Z++;
+        }
+      }
+      return countA_Z;
+    }
+    //统计小写字母个数函数
+    //参数：一个字符串
+    //返回值：小写字母个数
+    //计数变量为counta_z
+    //初始化为0
+    function Counta_z(str) {
+      let counta_z = 0;
+      //遍历字符串
+      for (let i = 0; i < str.length; i++) {
+        //判断是否为小写字母
+        if (Jugementa_z(str[i])) {
+          counta_z++;
+        }
+      }
+      return counta_z;
+    }
+    //统计空格个数函数
+    //参数：一个字符串
+    //返回值：空格个数
+    //计数变量为countSpace
+    //初始化为0
+    function CountSpace(str) {
+      //统计空格个数函数
+      //计数变量为countSpace
+      //初始化为0
+      let countSpace = 0;
+      for (let i = 0; i < str.length; i++) {
+        //判断是否为空格
+        if (JugementSpace(str[i])) {
+          countSpace++;
+        }
+      }
+      return countSpace;
+    }
+    //统计数字个数函数
+    //参数：一个字符串
+    //返回值：数字个数
+    //计数变量为countnum
+    //初始化为0
+    function CountNum(str) {
+      let countnum = 0;
+      for (let i = 0; i < str.length; i++) {
+        //判断是否为数字
+        if (JugementNum(str[i])) {
+          countnum++;
+        }
+      }
+      return countnum;
+    }
+    //统计特殊字符个数函数
+    //参数：一个字符串
+    //返回值：特殊字符个数
+    //计数变量为countSC
+    //初始化为0
+    function CountSC(str) {
+      let countSC = 0;
+      countSC = str.length - CountA_Z(str) - Counta_z(str) - CountSpace(str) - CountNum(str);
+      return countSC;
+    }
+    //接收用户传入的字符串
+    let str = prompt("请输入任意内容");
+    //调用函数CountA_Z，统计大写字母个数
+    let countA_Z = CountA_Z(str);
+    //调用函数Counta_z，统计小写字母个数
+    let counta_z = Counta_z(str);
+    //调用函数CountSpace，统计空格个数
+    let countSpace = CountSpace(str);
+    //调用函数CountNum，统计数字个数
+    let countnum = CountNum(str);
+    //调用函数CountSC，统计特殊字符个数
+    let countSC = CountSC(str);
+    //输出结果
+    document.write(`大写字母个数为：${countA_Z}` + "<br>");
+    document.write(`小写字母个数为：${counta_z}` + "<br>");
+    document.write(`空格个数为：${countSpace}` + "<br>");
+    document.write(`数字个数为：${countnum}` + "<br>");
+    document.write(`特殊字符个数为：${countSC}` + "<br>");
+  </script>
+</body>
+
+</html>

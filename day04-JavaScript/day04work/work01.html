@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>比较较大值</title>
+</head>
+
+<body>
+  <script>
+    //定义比较函数
+    function max(a, b) {
+      //a和b为参数，用于接收用户输入的两个数字
+      //return a或b，用于返回较大值
+      a = prompt('请输入第一个数字');
+      b = prompt('请输入第二个数字');
+      if (a > b) {
+        return a;
+      }
+      return b;
+    }
+    document.write(`两个数字中的较大值为：${max()}`);
+  </script>
+</body>
+
+</html>
