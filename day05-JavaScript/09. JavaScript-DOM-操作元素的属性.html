@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>09. JavaScript-DOM-操作元素的属性</title>
+  <style>
+    .center {
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="center">
+    <span id="sid">5</span>秒之后自动开灯<br>
+    <img src="images/off.gif" alt="">
+  </div>
+  <script>
+    /* DOM操作步骤：
+        第一步：获取元素对象
+          1 根据CSS选择器来获取DoM元素，获取匹配到的第一个元素：document.querySelector('选择器')
+          2 根据CSS选择器来获取DOM元素，获取匹配到的所有元素：document.querySelectorAll('选择器')
+        第二步：通过元素对象操作标签的内容、属性、样式等
+          2 操作标签的属性: 元素对象.html属性名=值;
+    */
+    //实现：5秒倒计时效果
+    let time = 5;
+    //循环定时器实现倒计时效果
+    let timer = setInterval(() => {
+      document.querySelector('#sid').innerHTML = --time;
+      //当时间归0时，改变img标签的src属性值
+      if (time == 0) {
+        document.querySelector('img').src = 'images/on.gif';
+        //当时间归0时，清除定时器
+        clearInterval(timer);
+      }
+
+    }, 1000);
+
+  </script>
+</body>
+
+</html>

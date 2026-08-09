@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>作业3</title>
+  <style>
+    /*
+         * 表格整体样式：
+         * - width: 60%：表格宽度占父容器 60%
+         * - border-collapse: collapse：合并相邻单元格边框，消除缝隙
+         * - border-spacing: 0：进一步确保单元格之间没有间距
+         * - text-align: center：单元格内容水平居中
+         * - margin: auto：表格自身水平居中
+         * - margin-top: 20px：距离顶部 20 像素
+         * - line-height: 30px：行高 30 像素
+         * - font-family：设置字体，优先使用 Courier New
+         */
+    table {
+      width: 60%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      text-align: center;
+      margin: auto;
+      margin-top: 20px;
+      line-height: 30px;
+      font-family: 'Courier New', 华文中宋, monospace;
+    }
+
+    /*
+         * 为 table、tr、th、td 统一设置 1 像素黑色实线边框
+         */
+    table,
+    tr,
+    th,
+    td {
+      border: 1px solid black;
+    }
+
+    /* 页面中所有 div 的内容水平居中 */
+    div {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 页面标题 -->
+  <div style="font-size: 30px; text-align: center;" id="tb1">课程表</div>
+
+  <!-- 学员成绩表格 -->
+  <table width="800px" border="1" cellspacing="0" align="center">
+    <!-- 表头行 -->
+    <tr>
+      <th>学号</th>
+      <th>姓名</th>
+      <th>分数</th>
+      <th>评语</th>
+    </tr>
+    <!--
+            数据行：
+            - class="data" 用于在 JavaScript 中统一选中这些行
+            - align="center" 让行内内容居中
+        -->
+    <tr align="center" class="data">
+      <td>001</td>
+      <td>张三</td>
+      <td>90</td>
+      <td>很优秀</td>
+    </tr>
+    <tr align="center" class="data">
+      <td>002</td>
+      <td>李四</td>
+      <td>92</td>
+      <td>优秀</td>
+    </tr>
+    <tr align="center" class="data">
+      <td>003</td>
+      <td>王五</td>
+      <td>83</td>
+      <td>很努力,不错</td>
+    </tr>
+    <tr align="center" class="data">
+      <td>004</td>
+      <td>赵六</td>
+      <td>98</td>
+      <td>666</td>
+    </tr>
+  </table>
+
+  <br>
+</body>
+
+<script>
+  /*
+   * 功能：鼠标移入表格数据行时，根据奇偶行显示不同背景色；
+   *       鼠标移出时，恢复为白色背景。
+   * 涉及事件：mouseenter（鼠标移入）、mouseleave（鼠标移出）
+   */
+
+  // 获取表格中所有 class 为 data 的数据行，返回 NodeList
+  var rows = document.querySelectorAll('.data');
+
+  /*
+   * 遍历每一行数据行：
+   * - row 表示当前遍历到的 tr 元素
+   * - index 表示当前元素在 NodeList 中的索引，从 0 开始
+   */
+  rows.forEach(function (row, index) {
+
+    /*
+     * 绑定 mouseenter 事件：
+     * 当鼠标移入某一行时触发。
+     * 通过 index 判断是奇数行还是偶数行：
+     * - index 从 0 开始，所以 (index + 1) 才是人类习惯上的第几行
+     * - (index + 1) % 2 === 1 表示奇数行
+     * - 否则为偶数行
+     */
+    row.addEventListener('mouseenter', function () {
+      if ((index + 1) % 2 === 1) {
+        // 奇数行背景色变为浅黄色
+        row.style.backgroundColor = '#FFFFBE';
+      } else {
+        // 偶数行背景色变为浅蓝色
+        row.style.backgroundColor = '#C2C2FF';
+      }
+    });
+
+    /*
+     * 绑定 mouseleave 事件：
+     * 当鼠标移出某一行时触发，将背景色恢复为白色。
+     */
+    row.addEventListener('mouseleave', function () {
+      row.style.backgroundColor = '#FFFFFF';
+    });
+  });
+</script>
+
+</html>

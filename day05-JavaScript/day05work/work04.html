@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS-事件-练习</title>
+</head>
+
+<body>
+
+  <!--
+    灯泡图片：
+    - id="light" 用于在 JavaScript 中快速获取该元素
+    - 默认显示熄灭状态 img/off.gif
+  -->
+  <img id="light" src="img/off.gif"> <br>
+
+  <!-- 点亮和熄灭灯泡的按钮 -->
+  <input class="btnOn" type="button" value="点亮">
+  <input class="btnOff" type="button" value="熄灭">
+
+  <br> <br>
+
+  <!--
+    文本输入框：
+    - id="name" 用于获取元素
+    - value="ITCAST" 是默认值
+    - 聚焦时显示小写，失焦时显示大写
+  -->
+  <input type="text" id="name" value="ITCAST">
+
+  <br> <br>
+
+  <!--
+    爱好复选框：
+    - class="hobby" 用于统一获取所有复选框
+    - name="hobby" 用于表单提交时归类（此处主要用于语义）
+  -->
+  <input class="hobby" type="checkbox" name="hobby"> 电影
+  <input class="hobby" type="checkbox" name="hobby"> 旅游
+  <input class="hobby" type="checkbox" name="hobby"> 游戏
+
+  <br> <br>
+
+  <!-- 全选和反选按钮 -->
+  <input class="btnSelectAll" type="button" value="全选">
+  <input class="btnSelectNone" type="button" value="反选">
+
+</body>
+
+<script>
+  /*
+   * 功能1：点击 "点亮" 按钮点亮灯泡；点击 "熄灭" 按钮熄灭灯泡
+   * 涉及事件：click
+   */
+
+  // 通过 id 获取灯泡图片对象
+  // getElementById 是最常用的按 id 获取元素的方法
+  let light = document.getElementById('light');
+
+  // 获取 "点亮" 按钮对象
+  let btnOn = document.querySelector('.btnOn');
+  // 获取 "熄灭" 按钮对象
+  let btnOff = document.querySelector('.btnOff');
+
+  // 为 "点亮" 按钮绑定点击事件
+  btnOn.addEventListener('click', function () {
+    // 修改 img 标签的 src 属性，切换为 on.gif（亮灯图片）
+    light.src = 'img/on.gif';
+  });
+
+  // 为 "熄灭" 按钮绑定点击事件
+  btnOff.addEventListener('click', function () {
+    // 修改 img 标签的 src 属性，切换为 off.gif（熄灯图片）
+    light.src = 'img/off.gif';
+  });
+
+  /*
+   * 功能2：输入框聚焦后展示小写；输入框失焦后展示大写
+   * 涉及事件：focus（聚焦）、blur（失焦）
+   */
+
+  // 获取 id 为 name 的输入框对象
+  let nameInput = document.getElementById('name');
+
+  // 关闭浏览器的拼写检查，避免输入英文时出现红色波浪线
+  nameInput.spellcheck = false;
+
+  // 绑定 focus 事件：当输入框获得焦点（被点击或 Tab 选中）时触发
+  nameInput.addEventListener('focus', function () {
+    // 将当前输入框的值转换为小写
+    nameInput.value = nameInput.value.toLowerCase();
+  });
+
+  // 绑定 blur 事件：当输入框失去焦点（点击外部或 Tab 离开）时触发
+  nameInput.addEventListener('blur', function () {
+    // 将当前输入框的值转换为大写
+    nameInput.value = nameInput.value.toUpperCase();
+  });
+
+  /*
+   * 功能3：点击 "全选" 按钮选中所有复选框；点击 "反选" 按钮取消所有复选框
+   * 涉及事件：click
+   * 复选框状态通过 checked 属性控制：true 表示选中，false 表示未选中
+   */
+
+  // 获取所有 class 为 hobby 的复选框，返回 NodeList
+  let hobbyCheckboxes = document.querySelectorAll('.hobby');
+
+  // 获取 "全选" 按钮
+  let btnSelectAll = document.querySelector('.btnSelectAll');
+  // 获取 "反选" 按钮
+  let btnSelectNone = document.querySelector('.btnSelectNone');
+
+  // 为 "全选" 按钮绑定点击事件
+  btnSelectAll.addEventListener('click', function () {
+    // 遍历每个复选框，将其 checked 属性设置为 true（选中）
+    hobbyCheckboxes.forEach(function (item) {
+      item.checked = true;
+    });
+  });
+
+  // 为 "反选" 按钮绑定点击事件
+  btnSelectNone.addEventListener('click', function () {
+    // 遍历每个复选框，将其 checked 属性设置为 false（取消选中）
+    hobbyCheckboxes.forEach(function (item) {
+      item.checked = false;
+    });
+  });
+</script>
+
+</html>

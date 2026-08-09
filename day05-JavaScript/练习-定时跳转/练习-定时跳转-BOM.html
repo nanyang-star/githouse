@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .center {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center">
+        您好, 支付完成, 5秒之后将自动跳转至 <a href="https://www.itheima.com">黑马官网</a> 首页 ~
+    </div>
+
+    <script>
+        //需求: 5秒后跳转到黑马官网首页（倒计时读秒的效果输出到控制台）
+       //设置循环定时器，倒计时读秒的效果输出到控制台
+       let time = 5;
+       setInterval(() => {
+        time--;
+        console.log(time);
+        //当time为0时，跳转至黑马官网
+        if (time == 0) {
+        location.href = 'https://www.itheima.com';
+       }
+       }, 1000);
+       
+    </script>
+</body>
+
+</html>

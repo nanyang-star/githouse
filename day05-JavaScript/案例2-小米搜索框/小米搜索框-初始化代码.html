@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小米搜索框显示隐藏案例</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    ul {
+
+      list-style: none;
+    }
+
+    .mi {
+      position: relative;
+      width: 223px;
+      margin: 100px auto;
+    }
+
+    /* 搜索框样式 */
+    .mi .search-text {
+      width: 223px;
+      height: 48px;
+      padding: 0 10px;
+      font-size: 14px;
+      line-height: 48px;
+      /* border: 1px solid #ff6700; */
+      outline: none;
+    }
+
+    /* 下拉菜单 */
+    .result-list {
+      position: absolute;
+      left: 0;
+      top: 48px;
+      width: 223px;
+      border: 1px solid #ff6700;
+      border-top: 0;
+      background: #fff;
+      display: none;
+    }
+
+    .result-list a {
+      display: block;
+      padding: 6px 15px;
+      font-size: 12px;
+      color: #424242;
+      text-decoration: none;
+    }
+
+    .result-list a:hover {
+      background-color: #eee;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="mi">
+    <input type="search" placeholder="小米笔记本" class="search-text">
+    <ul class="result-list">
+      <li><a href="#">全部商品</a></li>
+      <li><a href="#">小米11</a></li>
+      <li><a href="#">小米10S</a></li>
+      <li><a href="#">小米笔记本</a></li>
+      <li><a href="#">小米手机</a></li>
+      <li><a href="#">黑鲨4</a></li>
+      <li><a href="#">空调</a></li>
+    </ul>
+  </div>
+  <script>
+    //1.获取class为search-text的input搜索框对象
+    //2.为搜索框对象绑定焦点事件和失去焦点事件
+    //3.获取焦点函数实现：当搜索框获得焦点时，下拉菜单显示，并且将搜索框边框颜色改为下拉框颜色一致
+    //4.失去焦点函数实现：当搜索框失去焦点时，下拉菜单隐藏，并且将搜索框边框颜色改为默认颜色
+    // 1. 获取class为search-text的input搜索框对象
+    const searchText = document.querySelector('.search-text');
+    // 获取下拉菜单元素（用于控制显示隐藏）
+    const resultList = document.querySelector('.result-list');
+
+    // 2. 为搜索框绑定焦点事件（focus）和失去焦点事件（blur）
+    searchText.addEventListener('focus', function () {
+      // 3. 获取焦点时：显示下拉菜单，设置搜索框边框为下拉框一致的橙色
+      resultList.style.display = 'block';
+      // 原CSS中搜索框边框被注释，需动态添加边框样式
+      searchText.style.border = '1px solid #ff6700';
+    });
+
+    searchText.addEventListener('blur', function () {
+      // 4. 失去焦点时：隐藏下拉菜单，恢复默认边框样式
+      resultList.style.display = 'none';
+      searchText.style.border = '';
+    });
+  </script>
+</body>
+
+</html>

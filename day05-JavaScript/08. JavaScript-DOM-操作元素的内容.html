@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>操作标签</title>
+</head>
+<body>
+    <div id="sid1">我爱中国</div>
+    <div id="sid2">我爱中国</div>
+    <div class="cls">我爱黑马</div>
+    <div class="cls">我爱黑马</div>
+    <script>
+        //根据id来获取元素对象：document.querySelector('#id值')
+        let sid1 = document.querySelector('#sid1');
+        let sid2 = document.querySelector('#sid2');
+        //通过元素对象来操作标签的内容、属性、样式等
+        console.log(document.querySelector('#sid1'));
+        //操作标签内容，替换sid1的内容为：我爱高工资
+        sid1.innerText = '<b>我爱高工资</b>';//Text不会解析HTML标签
+        //操作标签内容，替换sid2的内容为：我爱高工资
+        sid2.innerHTML = '<b>我爱高工资</b>';//HTML会解析HTML标签
+        //操作标签内容，添加内容：来黑马月薪过2w
+        //获取标签
+        let divs = document.querySelectorAll('.cls');
+        //遍历数组，操作每个元素的内容
+        for (let i = 0; i < divs.length; i++) {
+            divs[i].innerHTML += '<b>来黑马月薪过2w</b>';
+        }
+    </script>
+</body>
+</html>

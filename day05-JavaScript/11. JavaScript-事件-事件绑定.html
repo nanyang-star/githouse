@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11、JavaScript-事件-事件绑定</title>
+</head>
+
+<body>
+  <img src="images/off.gif" alt=""> <br>
+  <button id="on_btn">开灯</button>
+  <button id="off_btn">关灯</button>
+</body>
+<script>
+  /*
+    事件：发生在HTML元素上的 “事情”或者动作。
+    事件监听：JavaScript可以在事件触发时，就立即调用一个函数做出响应，也称为 事件绑定或注册事件。
+    语法：
+        元素对象.addEventListener('事件类型',匿名/箭头函数);
+  */
+  //需求1：实现开灯效果
+  //获取按钮标签对象
+  let on_btn = document.querySelector('#on_btn');
+  //为标签对象绑定点击事件
+  on_btn.addEventListener('click', () => {
+    //点击开灯按钮后，将图片的src属性值改为on.gif
+    document.querySelector('img').src = 'images/on.gif';
+  })
+  //需求2：实现关灯效果
+  //获取按钮标签对象
+  let off_btn = document.querySelector('#off_btn');
+  //为标签对象绑定点击事件
+  off_btn.addEventListener('click', function () {
+    //点击关灯按钮后，将图片的src属性值改为off.gif
+    document.querySelector('img').src = 'images/off.gif';
+  });
+</script>
+</html>

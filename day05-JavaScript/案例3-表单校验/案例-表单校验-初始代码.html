@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>表单</title>
+    <style>
+        label {
+            display: inline-block;
+            width: 80px;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        input {
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            width: 150px;
+        }
+
+        .tip {
+            color: #ff0000;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>用户注册</h1>
+        <form>
+            <label for="username">用户名：</label>
+            <input type="text" id="username" name="username" placeholder="用户名不能为空且长度在4-16个字符">
+            <span class="tip" id="name_msg"></span> <br>
+
+            <label for="phone">手机号：</label>
+            <input type="text" id="phone" name="phone" placeholder="手机号不能为空且长度为11位">
+            <span class="tip" id="phone_msg"></span>
+            <br>
+
+            <input type="submit" value="提交" class="btn">
+            <input type="reset" value="重置" class="btn">
+        </form>
+    </div>
+
+
+    <script>
+        // 获取两个输入框对象
+        const usernameInput = document.getElementById('username');
+        const phoneInput = document.getElementById('phone');
+        // 获取提示信息元素
+        const nameTip = document.getElementById('name_msg');
+        const phoneTip = document.getElementById('phone_msg');
+        // 获取表单对象
+        const formEl = document.querySelector('form');
+
+        // 通用校验函数，通过传入规则校验输入
+        function validateInput(inputEl, rules, tipEl) {
+            const value = inputEl.value.trim(); // 去除首尾空格，避免无效空格干扰
+            // 校验是否必填
+            if (rules.required && value === '') {
+                tipEl.textContent = rules.requiredMsg;
+                return false;
+            }
+            // 校验长度范围
+            if (rules.minLength !== undefined && value.length < rules.minLength) {
+                tipEl.textContent = rules.lengthMsg;
+                return false;
+            }
+            if (rules.maxLength !== undefined && value.length > rules.maxLength) {
+                tipEl.textContent = rules.lengthMsg;
+                return false;
+            }
+            // 校验格式（如手机号必须为11位数字）
+            if (rules.pattern && !rules.pattern.test(value)) {
+                tipEl.textContent = rules.patternMsg;
+                return false;
+            }
+            // 校验通过，清空提示信息
+            tipEl.textContent = '';
+            return true;
+        }
+
+        // 定义用户名校验规则（非空、长度4-16）
+        const usernameRules = {
+            required: true,
+            requiredMsg: '用户名不能为空',
+            minLength: 4,
+            maxLength: 16,
+            lengthMsg: '用户名长度需在4-16个字符之间'
+        };
+
+        // 定义手机号校验规则（非空、长度11、纯数字）
+        const phoneRules = {
+            required: true,
+            requiredMsg: '手机号不能为空',
+            minLength: 11,
+            maxLength: 11,
+            lengthMsg: '手机号长度必须为11位',
+            pattern: /^\d{11}$/,
+            patternMsg: '手机号必须为11位数字'
+        };
+
+        // 为输入框绑定失去焦点事件（失焦时实时校验）
+        usernameInput.addEventListener('blur', () => {
+            validateInput(usernameInput, usernameRules, nameTip);
+        });
+
+        phoneInput.addEventListener('blur', () => {
+            validateInput(phoneInput, phoneRules, phoneTip);
+        });
+
+        // 为表单绑定提交事件（提交前再次校验）
+        formEl.addEventListener('submit', (event) => {
+            // 校验两个字段
+            const isUsernameValid = validateInput(usernameInput, usernameRules, nameTip);
+            const isPhoneValid = validateInput(phoneInput, phoneRules, phoneTip);
+            // 如果有任意字段校验不通过，阻止表单提交
+            if (!isUsernameValid || !isPhoneValid) {
+                event.preventDefault();
+                return;
+            }
+            // 校验通过，默认提交表单
+        });
+    </script>
+</body>
+
+</html>

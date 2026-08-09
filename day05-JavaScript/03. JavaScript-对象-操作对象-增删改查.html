@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>对象-属性-值</title>
+</head>
+<body>
+  <script>
+    //创建对象
+    let person = {
+      name:'阳楠',
+      age:23,
+      sex:'男',
+      graduation:'计算机',
+      university:'武汉理工大学',
+      //方法
+      sayHello(){
+        console.log(`你好，我是${this.name},我今年${this.age}岁,我是${this.sex},我专业是${this.graduation},我毕业于${this.university}`);
+        },
+        study : function (subject) {
+          console.log(`我在学习${subject}`);
+      }
+    }
+    //打印对象
+    console.log(person);
+    //打印对象的属性
+    console.log(`姓名：${person.name} 年龄：${person.age} 性别：${person.sex} 毕业专业：${person.graduation} 学校：${person.university}`);
+    //给对象赋值
+    person.age = 24;
+    console.log(person);
+    //调用方法
+    person.sayHello();
+    person.study('JavaScript');
+    //增删改查
+     //删
+    delete person.graduation;
+    console.log(person);
+    delete person.university;
+    console.log(person);
+    //增
+    person.address = '中国';
+    console.log(person);
+   
+    //改
+    person.age = 25;
+    console.log(person);
+    //查
+    console.log(person.age);
+    console.log(person['age']);
+    console.log(person['name']);
+  </script>
+</body>
+</html>

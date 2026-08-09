@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>window对象</title>
+</head>
+<body>
+  <script>
+    //confirm弹窗
+   let result = confirm('你确定吗？');
+   console.log(result);
+    //window的定时器
+    //一次性定时器
+    setTimeout(() => {
+      console.log('一次性定时器执行了');
+    }, 2000);
+    //循环定时器1
+    let timerId1 = setInterval(() => {
+      console.log('循环定时器1执行了');
+      //清除循环定时器1
+      clearInterval(timerId1);
+    }, 2000);
+    //循环定时器2
+    let timerId2 = setInterval(() => {
+      console.log('循环定时器2执行了');
+    }, 2000);
+  </script>
+</body>
+</html>

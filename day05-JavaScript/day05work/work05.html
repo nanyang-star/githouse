@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>评论回车发布</title>
+  <style>
+    /*
+     * 最外层容器：
+     * - min-width / max-width 限制宽度范围，保证适配性
+     * - display: flex 让头像、输入框、按钮水平排列
+     * - justify-content: flex-end 使内容靠右对齐
+     */
+    .wrapper {
+      min-width: 400px;
+      max-width: 800px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /*
+     * 用户头像：
+     * - 宽度和高度固定 48px
+     * - border-radius: 50% 让其显示为圆形
+     * - 背景图片通过 background 属性设置，no-repeat 不平铺，center / cover 居中并铺满
+     */
+    .avatar {
+      overflow: hidden;
+      width: 48px;
+      height: 48px;
+      margin-right: 20px;
+      border-radius: 50%;
+      background: url(./images/avatar.jpg) no-repeat center / cover;
+    }
+
+    /*
+     * 评论输入框：
+     * - flex: 1 让其自动占据剩余空间
+     * - resize: none 禁止用户拖动改变大小
+     * - outline: none 去掉聚焦时的蓝色外边框
+     * - transition: all 0.5s 让高度和背景变化有过渡动画
+     */
+    .wrapper textarea {
+      flex: 1;
+      height: 30px;
+      padding: 10px;
+      border-color: transparent;
+      outline: none;
+      resize: none;
+      background: #f5f5f5;
+      border-radius: 4px;
+      transition: all 0.5s;
+    }
+
+    /*
+     * 输入框聚焦状态：
+     * - height 变高，边框颜色出现，背景变白
+     */
+    .wrapper textarea:focus {
+      height: 50px;
+      border-color: #e4e4e4;
+      background: #fff;
+    }
+
+    /* 发布按钮样式 */
+    .wrapper button {
+      width: 70px;
+      margin-left: 10px;
+      border: none;
+      color: #fff;
+      background: #00aeec;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /*
+     * 字数统计区域：
+     * - 默认 opacity 为 0，即完全透明不可见
+     * - 当输入框获得焦点时，通过 JavaScript 将其 opacity 设置为 1 显示出来
+     */
+    .wrapper .total {
+      margin-right: 80px;
+      margin-top: 5px;
+      color: #999;
+      opacity: 0;
+      transition: all 0.5s;
+    }
+
+    /* 评论列表区域 */
+    .list {
+      display: flex;
+      min-width: 400px;
+      max-width: 800px;
+    }
+
+    .list .item {
+      display: flex;
+      width: 100%;
+    }
+
+    .list .item .info {
+      flex: 1;
+      border-bottom: 1px dashed #e4e4e4;
+      padding-bottom: 10px;
+    }
+
+    .list .item p {
+      margin: 0;
+    }
+
+    .list .item .name {
+      color: #FB7299;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .list .item .text {
+      padding: 10px 0;
+      color: #333;
+      font-size: 13px;
+    }
+
+    .list .item .time {
+      color: #999;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 评论输入区域 -->
+  <div class="wrapper">
+    <!-- 头像占位 -->
+    <i class="avatar"></i>
+    <!--
+      多行文本输入框：
+      - placeholder 提供占位提示文字
+      - maxlength="200" 限制最多输入 200 个字符
+    -->
+    <textarea id="tx" placeholder="发一条友善的评论" rows="2" maxlength="200"></textarea>
+    <button>发布</button>
+  </div>
+
+  <!-- 字数统计区域，默认隐藏 -->
+  <div class="wrapper">
+    <span class="total">0/200字</span>
+  </div>
+
+  <!-- 评论列表，当前仅有一个隐藏的模板项 -->
+  <div class="list">
+    <div class="item" style="display: none;">
+      <i class="avatar"></i>
+      <div class="info">
+        <p class="name">清风徐来</p>
+        <p class="text">大家都辛苦啦，感谢各位大大的努力，能圆满完成真是太好了[笑哭][支持]</p>
+        <p class="time">2099-10-10 20:29:21</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /*
+     * 本案例核心需求：
+     * 1. 文本框获得焦点时显示字数统计
+     * 2. 文本框失去焦点时隐藏字数统计
+     * 3. 输入内容时实时统计当前字数
+     */
+
+    // 1. 获取文本域（textarea）标签对象
+    const tx = document.querySelector('#tx');
+    // 获取展示字数的 span 标签对象
+    const total = document.querySelector('.total');
+
+    /*
+     * 2. 绑定获取焦点事件（focus）：
+     *    当用户点击输入框准备输入时，显示字数统计区域。
+     *    通过修改 opacity 属性实现淡入效果（CSS 中已设置 transition 过渡）
+     */
+    tx.addEventListener('focus', () => {
+      total.style.opacity = '1';
+    });
+
+    /*
+     * 3. 绑定失去焦点事件（blur）：
+     *    当用户点击输入框外部时，隐藏字数统计区域。
+     *    通过将 opacity 改回 0 实现淡出效果
+     */
+    tx.addEventListener('blur', () => {
+      total.style.opacity = '0';
+    });
+
+    /*
+     * 4. 绑定输入事件（input）：
+     *    用户在输入框中每输入一个字符，都会触发 input 事件。
+     *    我们通过 tx.value 获取当前输入的内容，
+     *    再通过字符串的 length 属性获取字数，
+     *    最后使用模板字符串更新 total 的文字内容。
+     */
+    tx.addEventListener('input', () => {
+      // 获取输入框的当前内容（字符串）
+      const content = tx.value;
+      // 更新字数统计显示，例如 "12/200字"
+      total.textContent = `${content.length}/200字`;
+    });
+  </script>
+</body>
+
+</html>

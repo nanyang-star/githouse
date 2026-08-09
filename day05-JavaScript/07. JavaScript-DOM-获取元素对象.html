@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>获取标签对象</title>
+</head>
+<body>
+    <div id="sid">我爱中国</div>
+    <div class="cls">我爱黑马</div>
+    <div class="cls">我爱黑马</div>
+  <script>
+    /* DOM操作步骤：
+    第一步：获取元素对象
+      根据CSS选择器来获取DoM元素，获取匹配到的第一个元素：document.querySelector('选择器')
+      根据CSS选择器来获取DOM元素，获取匹配到的所有元素：document.querySelectorAll('选择器')
+    第二步：通过元素对象操作标签的内容、属性、样式等
+*/
+    //根据id来获取元素对象：document.querySelector('#id值')
+    let sid = document.querySelector('#sid');
+    //通过元素对象来操作标签的内容、属性、样式等
+    console.log(document.querySelector('#sid'));
+    console.log(sid);
+    //根据class来获取元素对象：document.querySelectorAll('.class值')
+    let divs = document.querySelectorAll('.cls');
+    //遍历数组，操作每个元素的内容
+    for (let i = 0; i < divs.length; i++) {
+        console.log(divs[i]);
+    }
+    </script>
+    </body>
+  </html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 引入外部 CSS 文件，控制表格和表单的样式 -->
+  <link rel="stylesheet" href="./styles/index.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app" class="score-case">
+    <!-- 表格展示区域 -->
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>科目</th>
+            <th>成绩</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--
+            tbody 初始为空，表格数据会通过 JavaScript 动态渲染到这里。
+            下面这段注释掉的代码展示了预期生成的 tr 结构：
+            <tr>
+              <td>1</td>
+              <td>语文</td>
+              <td class="red">46</td>
+              <td><a href="#">删除</a></td>
+            </tr>
+          -->
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <!-- colspan="5" 让该单元格跨 5 列，占据整行 -->
+            <td colspan="5">
+              <span class="total">总分：246</span>
+              <span style="margin-left: 50px" class="average">平均分：79</span>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- 添加成绩表单区域 -->
+    <div class="form">
+      <div class="form-item">
+        <div class="label">姓名：</div>
+        <div class="input">
+          <input type="text" placeholder="请输入姓名" class="username" />
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="label">科目：</div>
+        <div class="input">
+          <input type="text" placeholder="请输入科目" class="subject" />
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="label">分数：</div>
+        <div class="input">
+          <input type="text" placeholder="请输入分数" class="score" />
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="label"></div>
+        <div class="input">
+          <button class="submit">添加</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /*
+     * 数据层：list 数组存储所有学员成绩信息。
+     * 每条数据是一个对象，包含 name（姓名）、subject（科目）、score（分数）三个属性。
+     */
+    const list = [
+      { name: '古丽扎娜', subject: '语文', score: 20 },
+      { name: '佟丽丫丫', subject: '数学', score: 99 },
+      { name: '马尔扎哈', subject: '英语', score: 70 },
+    ];
+
+    /*
+     * renderTable 函数：
+     * 作用：根据 list 数组中的数据，动态生成表格行并渲染到页面，
+     *       同时计算并显示总分和平均分。
+     * 调用时机：
+     *   1. 页面加载完成时调用一次，渲染初始数据
+     *   2. 添加新数据后调用，重新渲染
+     *   3. 删除某条数据后调用，重新渲染
+     */
+    function renderTable() {
+      // 获取 tbody 元素，所有数据行都要插入到这里
+      const tbody = document.querySelector('.table tbody');
+      // 清空 tbody 原有内容，避免重复渲染时数据堆积
+      tbody.innerHTML = '';
+
+      // 遍历 list 数组，为每条数据生成一行表格
+      list.forEach((item, index) => {
+        // 创建一个 tr 元素（表格行）
+        const tr = document.createElement('tr');
+
+        // 创建姓名单元格 td
+        const nameTd = document.createElement('td');
+        nameTd.textContent = item.name;
+
+        // 创建科目单元格 td
+        const subjectTd = document.createElement('td');
+        subjectTd.textContent = item.subject;
+
+        // 创建成绩单元格 td
+        const scoreTd = document.createElement('td');
+        scoreTd.textContent = item.score;
+        // 如果分数小于 60，给该单元格添加 red 类名，显示红色（样式由 index.css 定义）
+        if (item.score < 60) {
+          scoreTd.classList.add('red');
+        }
+
+        // 创建操作单元格 td，里面包含一个删除链接
+        const actionTd = document.createElement('td');
+        const deleteBtn = document.createElement('a');
+        deleteBtn.textContent = '删除';
+        deleteBtn.href = '#';
+
+        /*
+         * 为删除按钮绑定点击事件：
+         * - list.splice(index, 1) 从数组中删除当前这一条数据
+         * - renderTable() 重新调用渲染函数，更新页面显示
+         * 注意：这里使用箭头函数，可以保留 forEach 中的 index 变量
+         */
+        deleteBtn.addEventListener('click', () => {
+          list.splice(index, 1);
+          renderTable();
+        });
+
+        // 将删除按钮放入操作单元格
+        actionTd.appendChild(deleteBtn);
+
+        // 按照顺序将所有单元格添加到表格行中
+        tr.appendChild(nameTd);
+        tr.appendChild(subjectTd);
+        tr.appendChild(scoreTd);
+        tr.appendChild(actionTd);
+
+        // 将这一行添加到 tbody 中
+        tbody.appendChild(tr);
+      });
+
+      /*
+       * 计算总分：
+       * - list.reduce 是数组的归并方法
+       * - sum 是累加器，item 是数组中的每个元素
+       * - Number(item.score) 确保分数按数字类型相加，避免字符串拼接
+       */
+      const total = list.reduce((sum, item) => sum + Number(item.score), 0);
+
+      /*
+       * 计算平均分：
+       * - 先判断 list.length 是否大于 0，防止除以 0 报错
+       * - Math.round(total / list.length) 四舍五入取整
+       * - 如果数组为空，平均分显示 0
+       */
+      const average = list.length > 0 ? Math.round(total / list.length) : 0;
+
+      // 更新页面上总分和平均分的显示文字
+      document.querySelector('.total').textContent = `总分：${total}`;
+      document.querySelector('.average').textContent = `平均分：${average}`;
+    }
+
+    /*
+     * 获取表单相关元素：
+     * - usernameInput：姓名输入框
+     * - subjectInput：科目输入框
+     * - scoreInput：分数输入框
+     * - submitBtn：添加按钮
+     */
+    const scoreInput = document.querySelector('.score');
+    const usernameInput = document.querySelector('.username');
+    const subjectInput = document.querySelector('.subject');
+    const submitBtn = document.querySelector('.submit');
+
+    /*
+     * 为添加按钮绑定点击事件：
+     * 当用户点击"添加"时，先进行输入校验，再将新数据加入 list 数组，最后重新渲染表格。
+     */
+    submitBtn.addEventListener('click', () => {
+      // 获取用户输入的值，并使用 trim() 去掉首尾空格
+      const name = usernameInput.value.trim();
+      const subject = subjectInput.value.trim();
+      const score = scoreInput.value.trim();
+
+      // 校验1：判断是否所有字段都已填写
+      if (!name || !subject || !score) {
+        alert('请输入完整的信息！');
+        return;
+      }
+
+      // 校验2：判断分数是否为有效数字
+      // isNaN(Number(score)) 为 true 时，说明输入的不是数字
+      if (isNaN(Number(score))) {
+        alert('分数必须是数字！');
+        return;
+      }
+
+      // 将新数据添加到 list 数组末尾
+      list.push({
+        name: name,
+        subject: subject,
+        score: Number(score)
+      });
+
+      // 清空输入框，方便下次输入
+      usernameInput.value = '';
+      subjectInput.value = '';
+      scoreInput.value = '';
+
+      // 重新渲染表格和统计信息
+      renderTable();
+    });
+
+    // 页面加载完成后，立即渲染初始数据
+    renderTable();
+  </script>
+</body>
+
+</html>
